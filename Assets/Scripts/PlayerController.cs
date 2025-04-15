@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject projectile;
+
     private float horizontalInput;
     private float verticalInput;
     private float speed = 10.0f;
@@ -21,7 +23,12 @@ public class PlayerController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed);
-        transform.Translate(Vector3.forward * Time.deltaTime * verticalInput * speed);
+        transform.Translate(Vector3.up * Time.deltaTime * verticalInput * speed);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(projectile, transform.position, projectile.transform.rotation);
+        }
 
     }
 }

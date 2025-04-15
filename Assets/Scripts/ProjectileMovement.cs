@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class CameraController : MonoBehaviour
+public class ProjectileMovement : MonoBehaviour
 {
-    public GameObject player;
-    
+    public float speed = 40.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +15,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }
