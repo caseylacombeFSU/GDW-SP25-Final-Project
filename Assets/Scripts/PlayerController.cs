@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed);
-        transform.Translate(Vector3.up * Time.deltaTime * verticalInput * speed);
+        transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed, Space.World);
+        transform.Translate(Vector3.up * Time.deltaTime * verticalInput * speed, Space.World);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
