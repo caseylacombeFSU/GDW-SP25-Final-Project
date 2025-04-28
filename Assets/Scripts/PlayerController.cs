@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private float speed = 10.0f;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(projectile, transform.position, transform.rotation);
+            Instantiate(projectile, transform.TransformPoint(Vector3.forward * 1.1f), transform.rotation);
         }
 
         if (transform.position.z != 0.0f)
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
             gameManager.DecreaseHullIntegrity(10);
             Destroy(collision.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Projectile"))
+        else if (collision.gameObject.CompareTag("Enemy Projectile"))
         {
             gameManager.DecreaseHullIntegrity(5);
             Destroy(collision.gameObject);
