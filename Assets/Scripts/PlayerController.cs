@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
@@ -16,7 +18,13 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private float speed = 15.0f;
 
-    
+    private float playerXBound = 75.0f;
+    private float playerYBound = 100.0f;
+
+    private float fireRate = 0.1f;
+    private float nextShot = 0.0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +35,31 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        if (transform.position.x > playerXBound)
+        {
+            transform.position = new Vector3(playerXBound, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.y > playerYBound)
+        {
+            transform.position = new Vector3(transform.position.x, playerYBound, transform.position.z);
+        }
+        else if (transform.position.x < -playerXBound) 
+        {
+            transform.position = new Vector3(-playerXBound, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.y < -playerYBound)
+        {
+            transform.position = new Vector3(transform.position.x, -playerYBound, transform.position.z);
+        }
+        else
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(horizontalInput, verticalInput, 0);
+            playerRB.velocity = movement * speed;
+        }
 
-        Vector3 movement = new Vector3(horizontalInput, verticalInput, 0);
-        playerRB.velocity = movement * speed;
+        
         
 
         //transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed, Space.World);
@@ -39,13 +67,19 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Instantiate(projectile, transform.TransformPoint(Vector3.forward * 1.1f), transform.rotation);
+            if (Time.time > nextShot)
+            {
+                nextShot = Time.time + fireRate;
+                Instantiate(projectile, transform.TransformPoint(Vector3.forward * 1.1f), transform.rotation);
+            }
+            
         }
 
         if (transform.position.z != 0.0f)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
         }
+
 
     }
 
@@ -54,6 +88,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Loot"))
         {
             gameManager.IncreaseScore(5);
+            gameManager.DecreaseLootCount();
             Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Asteroid"))
@@ -68,6 +103,7 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             gameManager.DecreaseHullIntegrity(10);
+            gameManager.DecreaseEnemyCount();
             Destroy(other.gameObject);
         }
         else if (other.gameObject.CompareTag("Enemy Projectile"))

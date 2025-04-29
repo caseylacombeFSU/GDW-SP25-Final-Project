@@ -16,5 +16,11 @@ public class ProjectileMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if (gameObject.CompareTag("Projectile"))
+        {
+            Destroy(gameObject, 1);
+        }
     }
+
+    
 }

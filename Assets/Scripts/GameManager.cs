@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
             {
                 GameOver();
             }
-            if (lootCount >= lootCap)
+            if (lootCount >= 100)
             {
                 GameOver();
             }
@@ -130,7 +130,14 @@ public class GameManager : MonoBehaviour
 
     public void DecreaseCO2Percent(int percent)
     {
-        co2Percent -= percent;
+        if (co2Percent - percent < 0)
+        {
+            co2Percent = 0;
+        }
+        else
+        {
+            co2Percent -= percent;
+        }
     }
 
     public void DecreaseHullIntegrity(int percent)
@@ -140,7 +147,24 @@ public class GameManager : MonoBehaviour
 
     public void increaseHullIntegrity(int percent)
     {
-        hullIntegrity += percent;
+        if (hullIntegrity - percent > 100)
+        {
+            hullIntegrity = 100;
+        }
+        else
+        {
+            hullIntegrity += percent;
+        }
+    }
+
+    public void DecreaseLootCount()
+    {
+        lootCount--;
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        enemyCount--;
     }
 
     public void GameOver()
