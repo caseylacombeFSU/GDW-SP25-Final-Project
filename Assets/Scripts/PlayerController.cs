@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
-    private float speed = 10.0f;
+    private float speed = 15.0f;
 
     
     // Start is called before the first frame update
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
         //transform.Translate(Vector3.right * Time.deltaTime * horizontalInput * speed, Space.World);
         //transform.Translate(Vector3.up * Time.deltaTime * verticalInput * speed, Space.World);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButton(0))
         {
             Instantiate(projectile, transform.TransformPoint(Vector3.forward * 1.1f), transform.rotation);
         }
@@ -59,15 +60,20 @@ public class PlayerController : MonoBehaviour
         {
             gameManager.DecreaseHullIntegrity(10);
         }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Enemy"))
         {
             gameManager.DecreaseHullIntegrity(10);
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
-        else if (collision.gameObject.CompareTag("Enemy Projectile"))
+        else if (other.gameObject.CompareTag("Enemy Projectile"))
         {
             gameManager.DecreaseHullIntegrity(5);
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
 

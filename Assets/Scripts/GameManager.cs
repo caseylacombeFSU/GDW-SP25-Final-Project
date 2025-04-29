@@ -28,6 +28,10 @@ public class GameManager : MonoBehaviour
     private int co2Percent = 0;
     private int hullIntegrity = 100;
 
+    private float timeIncrement = 1.0f;
+    private float nextIncrement = 0.0f;
+    private int co2Increment = 2;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI co2PercentText;
     public TextMeshProUGUI hullIntegrityText;
@@ -35,22 +39,56 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnLoot", startDelay, repeatRate);
-        InvokeRepeating("SpawnEnemy", startDelay, repeatRate);
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Main Scene")
+        {
+            InvokeRepeating("SpawnLoot", startDelay, repeatRate);
+            InvokeRepeating("SpawnEnemy", startDelay, repeatRate);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        InvokeRepeating("SpawnAsteroid", startDelay, repeatRate);
-        
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Main Scene")
+        {
+            InvokeRepeating("SpawnAsteroid", startDelay, repeatRate);
+            scoreText.text = "Money: " + score;
+            co2PercentText.text = "CO2 Buildup: " + co2Percent + "%";
+            hullIntegrityText.text = "Hull Integrity: " + hullIntegrity + "%";
+
+            if (Time.time > nextIncrement)
+            {
+                nextIncrement = Time.time + timeIncrement;
+                co2Percent += co2Increment;
+            }
+
+            if (hullIntegrity <= 0)
+            {
+                GameOver();
+            }
+            if (co2Percent >= 100)
+            {
+                GameOver();
+            }
+            if (lootCount >= lootCap)
+            {
+                GameOver();
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.Return) && SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("Title Scene")))
         {
             SceneManager.LoadScene(1);
         }
-        scoreText.text = "Money: " + score;
-        co2PercentText.text = "CO2 Buildup: " + co2Percent + "%";
-        hullIntegrityText.text = "Hull Integrity: " + hullIntegrity + "%";
+        
 
     }
 
@@ -103,6 +141,11 @@ public class GameManager : MonoBehaviour
     public void increaseHullIntegrity(int percent)
     {
         hullIntegrity += percent;
+    }
+
+    public void GameOver()
+    {
+        
     }
 
 }
