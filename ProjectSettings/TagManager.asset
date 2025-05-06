@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - Asteroid
   - Enemy Projectile
+  - O2Tank
   layers:
   - Default
   - TransparentFX

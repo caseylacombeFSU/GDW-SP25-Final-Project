@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using Slider = UnityEngine.UI.Slider;
 
 public class GameManager : MonoBehaviour
 {
     private int lootCap = 20;
     private int enemyCap = 20;
     private int asteroidCap = 60;
+    private int o2TankCap = 10;
 
     private int lootCount = 0;
     private int enemyCount = 0;
     private int asteroidCount = 0;
+    private int o2TankCount = 0;
 
     public GameObject lootPrefab;
     public GameObject enemyPrefab;
     public GameObject asteroidPrefab;
+    public GameObject o2TankPrefab;
 
     private float spawnRangeX = 80.0f;
     private float spawnRangeY = 80.0f;
@@ -36,6 +42,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI co2PercentText;
     public TextMeshProUGUI hullIntegrityText;
 
+    public GameObject pauseScreen;
+    public bool isGamePaused = false;
+
+    public GameObject loseScreen;
+    public GameObject winScreen;
+
+    public Slider co2PercentSlider;
+    public Slider hullIntegritySlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +62,7 @@ public class GameManager : MonoBehaviour
         {
             InvokeRepeating("SpawnLoot", startDelay, repeatRate);
             InvokeRepeating("SpawnEnemy", startDelay, repeatRate);
+            InvokeRepeating("SpawnO2Tank", startDelay, repeatRate);
         }
     }
 
@@ -61,8 +77,10 @@ public class GameManager : MonoBehaviour
         {
             InvokeRepeating("SpawnAsteroid", startDelay, repeatRate);
             scoreText.text = "Money: " + score;
-            co2PercentText.text = "CO2 Buildup: " + co2Percent + "%";
-            hullIntegrityText.text = "Hull Integrity: " + hullIntegrity + "%";
+            //co2PercentText.text = "CO2 Buildup: " + co2Percent + "%";
+            co2PercentSlider.value = co2Percent;
+            //hullIntegrityText.text = "Hull Integrity: " + hullIntegrity + "%";
+            hullIntegritySlider.value = hullIntegrity;
 
             if (Time.time > nextIncrement)
             {
@@ -72,24 +90,25 @@ public class GameManager : MonoBehaviour
 
             if (hullIntegrity <= 0)
             {
-                GameOver();
+                GameOverLoss();
             }
             if (co2Percent >= 100)
             {
-                GameOver();
+                GameOverLoss();
             }
-            if (lootCount >= 100)
+            if (score >= 100)
             {
-                GameOver();
+                GameOverWin();
             }
         }
 
         if (Input.GetKeyUp(KeyCode.Return) && SceneManager.GetActiveScene().Equals(SceneManager.GetSceneByName("Title Scene")))
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(1);
         }
-        
 
+        Pause();
     }
 
     void SpawnLoot()
@@ -120,6 +139,16 @@ public class GameManager : MonoBehaviour
             GameObject asteroid = Instantiate(asteroidPrefab, spawnPos, asteroidPrefab.transform.rotation);
             asteroid.transform.localScale = Vector3.one * Random.Range(1.0f, 8.0f);
             asteroidCount++;
+        }
+    }
+
+    void SpawnO2Tank()
+    {
+        if (o2TankCount < o2TankCap)
+        {
+            Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), Random.Range(-spawnRangeY, spawnRangeY), 0);
+            Instantiate(o2TankPrefab, spawnPos, o2TankPrefab.transform.rotation);
+            o2TankCount++;
         }
     }
 
@@ -167,9 +196,44 @@ public class GameManager : MonoBehaviour
         enemyCount--;
     }
 
-    public void GameOver()
+    public void DecreaseO2TankCount()
     {
-        
+        o2TankCount--;
+    }
+
+    public void Pause()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGamePaused)
+        {
+            isGamePaused = true;
+            Time.timeScale = 0;
+            pauseScreen.SetActive(true);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && isGamePaused)
+        {
+            isGamePaused = false;
+            Time.timeScale = 1;
+            pauseScreen.SetActive(false);
+        }
+    }
+
+    public void GameOverLoss()
+    {
+        loseScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void GameOverWin()
+    {
+        winScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }
