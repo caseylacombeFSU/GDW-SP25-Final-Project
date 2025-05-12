@@ -288,9 +288,16 @@ MonoBehaviour:
   lootPrefab: {fileID: 0}
   enemyPrefab: {fileID: 0}
   asteroidPrefab: {fileID: 0}
+  o2TankPrefab: {fileID: 0}
   scoreText: {fileID: 0}
   co2PercentText: {fileID: 0}
   hullIntegrityText: {fileID: 0}
+  pauseScreen: {fileID: 0}
+  isGamePaused: 0
+  loseScreen: {fileID: 0}
+  winScreen: {fileID: 0}
+  co2PercentSlider: {fileID: 0}
+  hullIntegritySlider: {fileID: 0}
 --- !u!4 &566999621
 Transform:
   m_ObjectHideFlags: 0

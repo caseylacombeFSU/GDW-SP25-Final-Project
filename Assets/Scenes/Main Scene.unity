@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootPrefab: {fileID: 1295621368644024421, guid: 59cb9d91ac690744b96340b157646a99, type: 3}
-  enemyPrefab: {fileID: 7260247716553932616, guid: a8259e050f641ff40b7c518ee2dccb32, type: 3}
+  enemyPrefab: {fileID: 9136015305781337347, guid: dd708c4f216484f428d447a3422bcd4c, type: 3}
   asteroidPrefab: {fileID: 3608883721856585165, guid: 6731157ef40a992499f0ddd5b3b7c084, type: 3}
   o2TankPrefab: {fileID: 3472709206882063789, guid: 6e058756f725b4b49b21f04804180765, type: 3}
   scoreText: {fileID: 1388423530}
@@ -2674,7 +2674,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 62177317a08ee7b4aa4ede52565b5998, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fe22bcb84b1cf940bf5c8226cf34e0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
