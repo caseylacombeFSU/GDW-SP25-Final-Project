@@ -9,10 +9,10 @@ using Slider = UnityEngine.UI.Slider;
 
 public class GameManager : MonoBehaviour
 {
-    private int lootCap = 20;
+    private int lootCap = 30;
     private int enemyCap = 20;
-    private int asteroidCap = 60;
-    private int o2TankCap = 10;
+    private int asteroidCap = 80;
+    private int o2TankCap = 15;
 
     private int lootCount = 0;
     private int enemyCount = 0;
@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     public GameObject asteroidPrefab;
     public GameObject o2TankPrefab;
 
-    private float spawnRangeX = 80.0f;
-    private float spawnRangeY = 80.0f;
+    private float spawnRangeX = 120.0f;
+    private float spawnRangeY = 120.0f;
 
     private float startDelay = 0.0f;
     private float repeatRate = 2.0f;
@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
     public bool isGamePaused = false;
 
     public GameObject loseScreen;
+    public GameObject hullLoseText;
+    public GameObject CO2LoseText;
     public GameObject winScreen;
 
     public Slider co2PercentSlider;
@@ -222,6 +224,14 @@ public class GameManager : MonoBehaviour
     public void GameOverLoss()
     {
         loseScreen.SetActive(true);
+        if(hullIntegrity <= 0)
+        {
+            CO2LoseText.SetActive(false);
+        }
+        if (co2Percent >= 100)
+        {
+            hullLoseText.SetActive(false);
+        }
         Time.timeScale = 0;
     }
 

@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody enemyRB;
     private GameObject player;
 
-    private int health = 5;
+    private int health = 3;
     private int speed = 5;
 
     private int playerBound = 10;

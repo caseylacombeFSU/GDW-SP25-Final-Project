@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private float speed = 15.0f;
 
-    private float playerXBound = 75.0f;
-    private float playerYBound = 100.0f;
+    private float playerXBound = 140.0f;
+    private float playerYBound = 140.0f;
 
     private float fireRate = 0.1f;
     private float nextShot = 0.0f;

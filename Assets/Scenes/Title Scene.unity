@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -136.8}
+  m_AnchoredPosition: {x: 0, y: -256.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101673273
@@ -295,6 +295,8 @@ MonoBehaviour:
   pauseScreen: {fileID: 0}
   isGamePaused: 0
   loseScreen: {fileID: 0}
+  hullLoseText: {fileID: 0}
+  CO2LoseText: {fileID: 0}
   winScreen: {fileID: 0}
   co2PercentSlider: {fileID: 0}
   hullIntegritySlider: {fileID: 0}
@@ -641,7 +643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -18}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745600996
@@ -664,10 +666,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use WASD to move and press or hold left click to shoot
-
-    Avoid the
-    enemies and asteroids and try to collect as much gold as you can'
+  m_text: "Use WASD to move and press or hold left click to shoot\nAvoid the enemies
+    and asteroids \nCollect Silver O2 tanks to replenish your oxygen \nCollect 100
+    Gold to Win"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
