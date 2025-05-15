@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class PlayerController : MonoBehaviour
 {
