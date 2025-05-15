@@ -15,13 +15,13 @@ public class EnemyController : MonoBehaviour
     private int health = 3;
     private int speed = 5;
 
-    private int playerBound = 10;
-    private int nearPlayer = 20;
+    private int playerBound = 5;
+    private int nearPlayer = 25;
 
     private float fireRate = 1.0f;
     private float nextShot = 0.0f;
 
-    private float bound = 125.0f;
+    private float bound = 140.0f;
 
     //public Rigidbody playerRB;
 
